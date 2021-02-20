@@ -8,7 +8,8 @@ const theme = createMuiTheme({
   },
   typography: {
     h1: {
-      fontSize: '7vw'
+      // Dynamic font-size, at most 4rem, but ideally 4% of the screen width.
+      fontSize: 'min(4rem, 4vw)'
     } 
   }
 });
