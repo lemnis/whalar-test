@@ -16,12 +16,19 @@ export interface DefinitionData {
   value: string | undefined;
 };
 
-interface DefinitionListState {
+interface DefinitionListProps {
   list?: (DefinitionData | undefined)[];
   className: string;
   skeletonItems?: number;
 }
 
+/** Fallback, can be overwritten with a prop */
+const DEFAULT_SKELETON_ITEMS = 3;
+
+/**
+ * If there is content, return it.
+ * Otherwise create a skeleton loader of given elements.
+ */
 function createInfo(
   skeletonItems: number,
   list?: (DefinitionData | undefined)[]
@@ -29,8 +36,7 @@ function createInfo(
   return list?.length ? list : Array.from(Array(skeletonItems));
 }
 
-export default function DefinitionList(props: DefinitionListState) {
-  const DEFAULT_SKELETON_ITEMS = 3;
+export default function DefinitionList(props: DefinitionListProps) {
   const [skeletonItems, setSkeletonItems] = React.useState<number>(
     DEFAULT_SKELETON_ITEMS
   );
