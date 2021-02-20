@@ -156,27 +156,29 @@ export default function Character() {
             Back to main list
           </Button>
         </Box>
-        <Card component="section">
-          <CardContent>
-            <Typography gutterBottom={true} align="center" variant="h4" component="h1">
-              {title ? title : <Skeleton />}
-            </Typography>
-            <DefinitionList className={classes.list} list={info} skeletonItems={7} />
-            <Divider />
-            <List>
-              <ListSubheader>{character?.films.length} Films</ListSubheader>
-              {films.map((item, key) => (
-                <ListItem key={`film-${key.toString()}`}>
-                  {
-                    item
-                    ? <ListItemText primary={item} /> 
-                    : <Skeleton width={Math.ceil(Math.random() * 30) + 'em'} /> // A fixed width was too boring today ;)
-                  }
-                </ListItem>
-              ))}
-            </List>
-          </CardContent>
-        </Card>
+        <Box my={3}>
+          <Card component="section">
+            <CardContent>
+              <Typography gutterBottom={true} align="center" variant="h4" component="h1">
+                {title ? title : <Skeleton />}
+              </Typography>
+              <DefinitionList className={classes.list} list={info} skeletonItems={7} />
+              <Divider />
+              <List>
+                <ListSubheader>{character?.films.length} Films</ListSubheader>
+                {films.map((item, key) => (
+                  <ListItem key={`film-${key.toString()}`}>
+                    {
+                      item
+                      ? <ListItemText primary={item} /> 
+                      : <Skeleton width={Math.ceil(Math.random() * 30) + 'em'} /> // A fixed width was too boring today ;)
+                    }
+                  </ListItem>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+        </Box>
       </Container>
     </>
   );
