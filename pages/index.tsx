@@ -83,8 +83,8 @@ export default function Home() {
           {title}
         </Typography>
         <div className={classes.grid}>
-          {characters.map((character) => (
-            <Character character={character}></Character>
+          {characters.map((character, key) => (
+            <Character key={`character-${key}`} character={character}></Character>
           ))}
         </div>
         <Box my={3}>
