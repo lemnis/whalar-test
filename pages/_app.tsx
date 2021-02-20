@@ -1,23 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Head from 'next/head';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { AppProps } from 'next/app';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
+// SETUP NEEDED FOR USING MATERIAL-UI WITH NEXT.JS
+// GUIDE USED: https://itnext.io/next-js-with-material-ui-7a7f6485f671
 
-const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-    // primary: {
-    //   main: purple[500],
-    // },
-    // secondary: {
-    //   main: green[500],
-    // },
-  },
-});
+import React from 'react';
+// Modules
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+// MUI Core
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
+// Utils
+import theme from '../utils/theme';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   React.useEffect(() => {

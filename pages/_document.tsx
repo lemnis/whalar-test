@@ -1,21 +1,23 @@
+// SETUP NEEDED FOR USING MATERIAL-UI WITH NEXT.JS
+// GUIDE USED: https://itnext.io/next-js-with-material-ui-7a7f6485f671
 
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import Document, {
-  Head,
-  Html, Main, NextScript,
-} from 'next/document';
+// Modules
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+// MUI Core
 import { ServerStyleSheets } from '@material-ui/core/styles';
+// Utils
 import theme from '../utils/theme';
 
-export default class MyDocument extends Document {
+class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
+
           <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" />
-        </Head>        
+        </Head>
         <body>
           <Main />
           <NextScript />
@@ -28,6 +30,27 @@ export default class MyDocument extends Document {
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with server-side generation (SSG).
 MyDocument.getInitialProps = async (ctx) => {
+  // Resolution order
+  //
+  // On the server:
+  // 1. app.getInitialProps
+  // 2. page.getInitialProps
+  // 3. document.getInitialProps
+  // 4. app.render
+  // 5. page.render
+  // 6. document.render
+  //
+  // On the server with error:
+  // 1. document.getInitialProps
+  // 2. app.render
+  // 3. page.render
+  // 4. document.render
+  //
+  // On the client
+  // 1. app.getInitialProps
+  // 2. page.getInitialProps
+  // 3. app.render
+  // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
   const sheets = new ServerStyleSheets();
@@ -42,6 +65,11 @@ MyDocument.getInitialProps = async (ctx) => {
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+    styles: [
+      ...React.Children.toArray(initialProps.styles),
+      sheets.getStyleElement(),
+    ],
   };
 };
+
+export default MyDocument;
