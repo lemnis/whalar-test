@@ -3,6 +3,10 @@ import People from "swapi-typescript/dist/models/People";
 // Only allow string properties of the People type to be converted.
 type stringOnlyKeys = Extract<keyof People, string>;
 
+function capitalizeFirstLetter(string: string){
+  return string.substring(0, 1).toUpperCase() + string.substring(1)
+}
+
 export function convertPeopleValue<T extends stringOnlyKeys>(
   type: T,
   value: string
@@ -17,13 +21,12 @@ export function convertPeopleValue<T extends stringOnlyKeys>(
       if(format) {
         return `${format[1]} ${format[2]}`;
       } else {
-        // Couldn't parse birt year wit used regex,
-        // As such just use the initial value
-        // Tracking if this happens would help to see if this ever happens on a live env.
-        return value;
+        // Couldn't parse birth year with used regex,
+        // As such just use the initial value (e.g. when value is 'unknown')
+        return capitalizeFirstLetter(value);
       }
     }
     default:
-      return value.substring(0, 1).toUpperCase() + value.substring(1);
+      return capitalizeFirstLetter(value);
   }
 }
