@@ -12,6 +12,11 @@ const theme = createMuiTheme({
       paper: 'red'
     }
   },
+  typography: {
+    h1: {
+      fontSize: '4.5rem'
+    } 
+  }
 });
 
 export default theme;
