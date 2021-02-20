@@ -28,3 +28,4 @@ npm run start
 - Handle errors
 - Auto load more characters when bottom of screen is reached
 - Store (redux) to maintain state / data
+- Missing loading visual after pressed "read more"
