@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Avatar,
-  Box,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@material-ui/core";
+import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { SvgIconComponent } from "@material-ui/icons";
 import { Skeleton } from "@material-ui/lab";
 
@@ -14,11 +7,11 @@ export interface DefinitionData {
   icon: SvgIconComponent;
   title: string;
   value: string | undefined;
-};
+}
 
 interface DefinitionListProps {
   list?: (DefinitionData | undefined)[];
-  className: string;
+  className?: string;
   skeletonItems?: number;
 }
 
@@ -38,7 +31,7 @@ function createInfo(
 
 export default function DefinitionList(props: DefinitionListProps) {
   const [skeletonItems, setSkeletonItems] = React.useState<number>(
-    DEFAULT_SKELETON_ITEMS
+    props.skeletonItems || DEFAULT_SKELETON_ITEMS
   );
   const [info, setInfo] = React.useState<(DefinitionData | undefined)[]>(
     createInfo(skeletonItems, props.list)
@@ -74,10 +67,7 @@ export default function DefinitionList(props: DefinitionListProps) {
               <Skeleton variant="text" width="60%" />
             </Box>
           ) : (
-            <ListItemText
-              primary={definition?.title}
-              secondary={definition?.value}
-            />
+            <ListItemText primary={definition?.title} secondary={definition?.value} />
           )}
         </ListItem>
       ))}
