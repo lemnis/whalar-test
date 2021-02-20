@@ -4,17 +4,11 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
-    type: 'dark',
-    primary: indigo,
-    secondary: pink,
-    background: {
-      default: 'green',
-      paper: 'red'
-    }
+    type: 'dark'
   },
   typography: {
     h1: {
-      fontSize: '4.5rem'
+      fontSize: '7vw'
     } 
   }
 });
