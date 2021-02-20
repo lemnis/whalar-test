@@ -29,15 +29,13 @@ const useStyles = makeStyles({
 
 /**
  * Home page
- * 
- * @todo: Load more characters when a user is detected to be on the bottom of the list 
+ *
+ * @todo: Load more characters when a user is detected to be on the bottom of the list
  * (e.g. with IntersectionObserver)
  */
 export default function Home() {
   const classes = useStyles();
-  const [characters, setCharacters] = React.useState<(People | undefined)[]>(
-    Array(10).map(() => undefined)
-  );
+  const [characters, setCharacters] = React.useState<(People | undefined)[]>(Array.from(Array(10)));
 
   /** @todo URL should be stored somewhere else, e.g. in a constant file */
   const [url, setUrl] = React.useState<string | undefined>("https://swapi.dev/api/people/");
@@ -50,7 +48,7 @@ export default function Home() {
     const result: PagedResults<People> = await response.json();
 
     // In case only the skeleton loader is shown, replace its content
-    if(characters.every(character => !character)) {
+    if (characters.every((character) => !character)) {
       setCharacters(result.results);
     } else {
       // Add new characters
@@ -90,7 +88,11 @@ export default function Home() {
           ))}
         </div>
         <Box my={3}>
-          {url ? <Button onClick={loadMore} size="large" color="primary" variant="contained">Load More</Button> : undefined}
+          {url ? (
+            <Button onClick={loadMore} size="large" color="primary" variant="contained">
+              Load More
+            </Button>
+          ) : undefined}
         </Box>
       </Container>
     </>

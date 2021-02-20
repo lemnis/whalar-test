@@ -1,3 +1,23 @@
+# How to use
+
+Install the npm packages
+
+```
+npm install
+```
+
+Build the package
+
+```
+npm run build
+```
+
+Start the package
+
+```
+npm run start 
+```
+
 # Dependencies
 
 - Material UI: Used for increase the speed of building the app
