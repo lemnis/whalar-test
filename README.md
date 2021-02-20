@@ -29,3 +29,4 @@ npm run start
 - Auto load more characters when bottom of screen is reached
 - Store (redux) to maintain state / data
 - Missing loading visual after pressed "read more"
+- UI adapts to its content, but this can result in a sudden chance in the UI when more content is loaded. This should be a fixed size.
