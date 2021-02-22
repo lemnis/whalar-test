@@ -33,6 +33,7 @@ import { httpToHttps } from "../../utils/url";
 import { convertPeopleValue } from "../../utils/convertValue";
 import DefinitionList, { DefinitionData } from "../../components/definition-list";
 import theme from "../../utils/theme";
+import Film from "swapi-typescript/dist/models/Film";
 
 const useStyles = makeStyles({
   root: {},
@@ -60,7 +61,7 @@ export default function Character() {
 
   const classes = useStyles();
   const [character, setCharacter] = React.useState<People>();
-  const [films, setFilms] = React.useState<string[]>([]);
+  const [films, setFilms] = React.useState<{ title: string; yearsAgo: number }[]>([]);
   const [info, setInfo] = React.useState<DefinitionData[]>([]);
   const [title, setTitle] = React.useState<string>("");
 
@@ -129,14 +130,21 @@ export default function Character() {
     // Start loading the film titles
     Promise.all(
       character?.films.map((filmUrl, index) => {
-        return fetch(httpToHttps(filmUrl), { redirect: "follow" }).then((response) =>
+        return fetch(httpToHttps(filmUrl), { redirect: "follow" }).then<Film>((response) =>
           response.json()
         );
       })
     ).then((films) => {
       // Ideally you would populate the films async, and not wait till all promises are resolved.
       // When trying only the first result was popping up.
-      setFilms(films.map((film) => film.title));
+      setFilms(
+        films.map((film) => ({
+          title: film.title,
+          yearsAgo: Math.floor(
+            Math.floor((Date.now() - new Date(film.release_date).getTime()) / 1000 / 60 / 60 / 24 / 365)
+          ),
+        }))
+      );
     });
 
     // Update the meta title & h1 with fetched data
@@ -169,9 +177,18 @@ export default function Character() {
                 {films.map((item, key) => (
                   <ListItem key={`film-${key.toString()}`}>
                     {
-                      item
-                      ? <ListItemText primary={item} /> 
-                      : <Skeleton width={Math.ceil(Math.random() * 30) + 'em'} /> // A fixed width was too boring today ;)
+                      item ? (
+                        <ListItemText
+                          primary={item.title}
+                          secondary={`${item.yearsAgo} years ago`}
+                        />
+                      ) : (
+                        <Box width="100%">
+                          {/* A fixed width was too boring today ;) */}
+                          <Skeleton variant="text" height="2em" width={Math.ceil(Math.random() * 30) + "em"} />
+                          <Skeleton variant="text" width="5em" />
+                        </Box>
+                      )
                     }
                   </ListItem>
                 ))}
